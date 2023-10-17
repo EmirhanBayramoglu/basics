@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using HelloWebAPI.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace HelloWebAPI.Controllers
 {
@@ -6,10 +7,18 @@ namespace HelloWebAPI.Controllers
     [Route("home")]
     public class HomeController : ControllerBase
     {
+        //Alt kısımda ResponseModel yerine IActionResult olmasının sebebi başka kodlar gönderebilmesini sağlamak
+        //eğer alttaki ResponseModel ile ilgili bir sorun yaşanırsa farklı bir kod return edilebilinir
         [HttpGet]
-        public string GetMessage()
+        public IActionResult GetMessage()
         {
-            return "Hello ASP.NET Core Web API";
+            var result = new ResponseModel()
+            {
+                HttpStatus = 200,
+                Message = "Hello ASP.NET Core Web API"
+            };
+
+            return Ok(result);
         }
     }
 }
