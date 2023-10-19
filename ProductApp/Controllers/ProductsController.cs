@@ -27,11 +27,19 @@ namespace ProductApp.Controllers
                 new Product { Id = 2, ProductName = "Monitor"},
                 new Product { Id = 3, ProductName = "Mouse"}
             };
-
             //alttaki mesaj debug consolunda gözükür
             _logger.LogInformation("GetAllProducts action has been called.");
 
             return Ok(products);
+        }
+
+        [HttpPost]
+        public IActionResult GetAllProducts([FromBody]Product product)
+        {
+            //warning seviyesinde sadece warning seviyesindeki loglar gözükür
+            //information seviyesinde giriş yaptıysak hem informaiton hem de warning loglarını görürüz
+            _logger.LogWarning("Product has been created...");
+            return StatusCode(201);
         }
 
     }
